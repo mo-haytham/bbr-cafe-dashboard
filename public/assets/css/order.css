@@ -1,0 +1,44 @@
+.alert-danger{
+    background-color: green;
+}
+/*-----------------------------------------Receipt-----------------------*/
+.invoice .invoice-head td {
+    padding: 0 8px;
+  }
+  .invoice.container {
+    padding-top:30px;
+    max-width: 100% !important;
+  }
+  .invoice-body{
+    background-color:transparent;
+  }
+  .invoice .invoice-thank{
+    margin-top: 60px;
+    padding: 5px;
+  }
+  .invoice address{
+    padding-top: 8px;
+  }
+  .invoice .span4 {
+    width: 49%;
+    float: left;
+    
+  }
+  .invoice .ilogo{
+    width: 70px;
+    height: 70px;
+    float: left;
+    background-color: #000;
+    border-radius: 50%;
+    margin: 0px 20px;
+      background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABZBAMAAACJTHZLAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAeUExURUdwTP///////////////////////////////////8kBMKEAAAAJdFJOUwDyYRG330SJJrhu4NEAAAOhSURBVGje7VgheyJbDD1AC3scto4VK3Bj6yr2CRy2Dvnq3ooVuFpc2LaU82+fyM2dGYYpM91l1UTwheHenOTc3CQDMMgggwwyyCCDdJV/rw1ASZLs+hCSNlfDuMsYer8WhqpyHYhxxfhdr1NZdF45qR34ZRBqkTXrxdV/6Lyx6tCxT15Vv14AGfWJuhoIeoAwL6f00B0Emx4gpU/b7pl4J1DzPiD92cJtUVt9aeen2AIwqxjmJQruqiD96tYZG3+SrfpqdmCryNq6F8hDM3Va5P732brcT36HrakkTCTtczK4iXHUG1pyaEEVAKbSGhQA3APUhciksme9AiMV2c9JhHaTFEp0Silh7HZlab99wNZbblr7MO87xtECbkNR7tFy0+n6XmpFkuVI4ns2VLMNfKmDuO9LGSW9ox3kNkynze60nlSUyJT0+piUOZiCuHEQOQhm50FOmJReAsSkxBkbCqgFVhW2hHClvbOflBRJep25jSMwUrqhDvKSMsXZOvr6aSawfXqwap6F24bIolIJLzwIVtlquThPzflE2gA73xAdkGIo2MowkrTJxxJsvZxni5Ekp4mmPTDJNsB9KO+QrJFb0ptryzMgcYZ2AjKLxyl6WVbSTfSMT2xNP2KrTL/a/AVQD3G0CJCkPGXAOluPgdtSFU9miLBdYUtfQylUAjbZ4lm2rNHQt5I/GZdsPSmtWcmPOLxxtrYf5taZQEr/mPMTMpbKC2qVx7MH1DEXjhO2DMBtruyVtwcA1H2uugmEWrvp1D4Zxe29nS2eYau8mZScpUkQeCONJWCpOSjJS/+jJPsiAdjJ1AQpzhy7cvKkAOLy+7U+1Mq6bCVn61dzDk0WU7epBRKRjfQW1TjA9w5GSVpIfmMkHRId7SDNy3nKXlVRXiZpPi07S9uYwxhsKlOImnVnEQoAfMuHeaN1ygkBoJfCdcvB1y3OTxc9XxpB7j8eWFhL3qiW/V81rfvv/NxLLy+PtGoeMbaeqQQMjJu9cZUSZdQrwUXn96W0ZFfpWz9gBLAqIEcyPsNAgwEE/cNW4dy8z6v7IT386iBmkCUQgDjWQXyo6TQMVzBy1EuBsokZ7M3p+gkQtgMNjKylX7Rll1xpQEQkBGHcAebOj+bpIQH6aWEnSM8dsmPWSKoE8n0FgwCjcQHj93/sFGT1i5/9g2Qpow6GiVk6eEjFEjAp0eVYWB6u+68VqrXm2iBXDwT4C4EMMsgggwwyyCDd5X/tPOGZyfeq9gAAAABJRU5ErkJggg==');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  @media(max-width: 750px){
+    .invoice .span4 {
+      width: 100%;
+      float: none;
+    }
+  }
