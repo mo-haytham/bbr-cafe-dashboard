@@ -291,7 +291,6 @@
                         "branch_id": branch_id
                     },
                     success: function() {
-                        console.log("Data sent!");
                         $("#select_default_branch_message").addClass("text-success");
                         $("#select_default_branch_message").text(
                             "Branch set default successfully..");

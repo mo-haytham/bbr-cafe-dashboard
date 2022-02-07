@@ -108,10 +108,18 @@
                                             <td>{{ $dessert->name_en }}</td>
                                             <td>{{ $dessert->name_ar }}</td>
                                             <td>{{ $dessert->country_iso_code }}</td>
-                                            <td>{{ $dessert->price }}</td>
                                             <td>
+                                                <input type="text" id="input_dessert_{{ $dessert->id }}"
+                                                    value="{{ $dessert->price }}" class="form-control">
+                                            </td>
+                                            <td>
+                                                <button data-type="dessert" data-id="{{ $dessert->id }}"
+                                                    class="btn btn-primary btn-sm update" style="width: 75%; margin:1px"
+                                                    type="button">
+                                                    Update
+                                                </button>
                                                 <a href="{{ route('d.desserts.type.delete', ['type' => 'dessert', 'type_id' => $dessert->id]) }}"
-                                                    class="btn btn-danger">Delete</a>
+                                                    class="btn btn-danger" style="width: 75%; margin:1px">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -227,10 +235,18 @@
                                             <td>{{ $addon->name_en }}</td>
                                             <td>{{ $addon->name_ar }}</td>
                                             <td>{{ $addon->country_iso_code }}</td>
-                                            <td>{{ $addon->price }}</td>
                                             <td>
+                                                <input type="text" id="input_dessert_addon_{{ $addon->id }}"
+                                                    value="{{ $addon->price }}" class="form-control">
+                                            </td>
+                                            <td>
+                                                <button data-type="dessert_addon" data-id="{{ $addon->id }}"
+                                                    class="btn btn-primary btn-sm update" style="width: 75%; margin:1px"
+                                                    type="button">
+                                                    Update
+                                                </button>
                                                 <a href="{{ route('d.desserts.type.delete', ['type' => 'addon', 'type_id' => $addon->id]) }}"
-                                                    class="btn btn-danger">Delete</a>
+                                                    class="btn btn-danger" style="width: 75%; margin:1px">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -488,5 +504,22 @@
         $('#addon_country_iso_code').change(function() {
             addon_update_currency();
         });
+
+        $(".update").click(function(event) {
+            event.preventDefault()
+            let type = $(this).attr('data-type')
+            let id = $(this).attr('data-id')
+            let input_id = 'input_' + type + '_' + id
+            let new_price = $('#' + input_id).val()
+            $.post("{{ route('update.price') }}", {
+                id: id,
+                type: type,
+                new_price: new_price
+            }, function(data, status) {
+                if (data == true) {
+                    alert('Price updated successfully..')
+                }
+            })
+        })
     </script>
 @endsection

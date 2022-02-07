@@ -96,10 +96,18 @@
                                             <td>{{ $choice->name_en }}</td>
                                             <td>{{ $choice->name_ar }}</td>
                                             <td>{{ $choice->country_iso_code }}</td>
-                                            <td>{{ $choice->base_price }}</td>
                                             <td>
+                                                <input type="text" id="input_custom_choice_{{ $choice->id }}"
+                                                    value="{{ $choice->base_price }}" class="form-control">
+                                            </td>
+                                            <td>
+                                                <button data-type="custom_choice" data-id="{{ $choice->id }}"
+                                                    class="btn btn-primary btn-sm update" style="width: 75%; margin:1px"
+                                                    type="button">
+                                                    Update
+                                                </button>
                                                 <a href="{{ route('d.custom.type.delete', ['type' => 'choice', 'type_id' => $choice->id]) }}"
-                                                    class="btn btn-danger">Delete</a>
+                                                    class="btn btn-danger" style="width: 75%; margin:1px">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -321,10 +329,19 @@
                                                 <td>{{ $type->name_ar }}</td>
                                                 <td>{{ $type->custom_choice_option->name_en }}</td>
                                                 <td>{{ $type->calories }}</td>
-                                                <td>{{ $type->price }}</td>
                                                 <td>
+                                                    <input type="text"
+                                                        id="input_custom_choice_option_type_{{ $type->id }}"
+                                                        value="{{ $type->price }}" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <button data-type="custom_choice_option_type"
+                                                        data-id="{{ $type->id }}" class="btn btn-primary btn-sm update"
+                                                        style="width: 75%; margin:1px" type="button">
+                                                        Update
+                                                    </button>
                                                     <a href="{{ route('d.custom.type.delete', ['type' => 'type', 'type_id' => $type->id]) }}"
-                                                        class="btn btn-danger">Delete</a>
+                                                        class="btn btn-danger" style="width: 75%; margin:1px">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -353,5 +370,22 @@
         $('#choice_country_iso_code').change(function() {
             choice_update_currency();
         });
+
+        $(".update").click(function(event) {
+            event.preventDefault()
+            let type = $(this).attr('data-type')
+            let id = $(this).attr('data-id')
+            let input_id = 'input_' + type + '_' + id
+            let new_price = $('#' + input_id).val()
+            $.post("{{ route('update.price') }}", {
+                id: id,
+                type: type,
+                new_price: new_price
+            }, function(data, status) {
+                if (data == true) {
+                    alert('Price updated successfully..')
+                }
+            })
+        })
     </script>
 @endsection

@@ -99,10 +99,18 @@
                                             <td>{{ $drink->name_en }}</td>
                                             <td>{{ $drink->name_ar }}</td>
                                             <td>{{ $drink->country_iso_code }}</td>
-                                            <td>{{ $drink->price }}</td>
                                             <td>
+                                                <input type="text" id="input_drink_{{ $drink->id }}"
+                                                    value="{{ $drink->price }}" class="form-control">
+                                            </td>
+                                            <td>
+                                                <button data-type="drink" data-id="{{ $drink->id }}"
+                                                    class="btn btn-primary btn-sm update" style="width: 75%; margin:1px"
+                                                    type="button">
+                                                    Update
+                                                </button>
                                                 <a href="{{ route('d.drinks.type.delete', ['type' => 'drink', 'type_id' => $drink->id]) }}"
-                                                    class="btn btn-danger">Delete</a>
+                                                    class="btn btn-danger" style="width: 75%; margin:1px">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -186,6 +194,7 @@
                                     <tr>
                                         <th>Name - EN</th>
                                         <th>Name - AR</th>
+                                        <th>Price</th>
                                         <th></th>
                                     </tr>
                                     @foreach ($options as $option)
@@ -193,8 +202,17 @@
                                             <td>{{ $option->name_en }}</td>
                                             <td>{{ $option->name_ar }}</td>
                                             <td>
+                                                <input type="text" id="input_drink_option_{{ $option->id }}"
+                                                    value="{{ $option->price }}" class="form-control">
+                                            </td>
+                                            <td>
+                                                <button data-type="drink_option" data-id="{{ $option->id }}"
+                                                    class="btn btn-primary btn-sm update" style="width: 75%; margin:1px"
+                                                    type="button">
+                                                    Update
+                                                </button>
                                                 <a href="{{ route('d.drinks.type.delete', ['type' => 'option', 'type_id' => $option->id]) }}"
-                                                    class="btn btn-danger">Delete</a>
+                                                    class="btn btn-danger" style="width: 75%; margin:1px">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -224,5 +242,22 @@
         $('#country_iso_code').change(function() {
             dessert_update_currency();
         });
+
+        $(".update").click(function(event) {
+            event.preventDefault()
+            let type = $(this).attr('data-type')
+            let id = $(this).attr('data-id')
+            let input_id = 'input_' + type + '_' + id
+            let new_price = $('#' + input_id).val()
+            $.post("{{ route('update.price') }}", {
+                id: id,
+                type: type,
+                new_price: new_price
+            }, function(data, status) {
+                if (data == true) {
+                    alert('Price updated successfully..')
+                }
+            })
+        })
     </script>
 @endsection

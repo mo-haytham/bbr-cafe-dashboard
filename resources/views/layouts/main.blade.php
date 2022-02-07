@@ -68,16 +68,9 @@
 
             let order_count = parseInt({{ App\Models\Order::where('status', 0)->count() }})
             let reservation_count = parseInt({{ App\Models\Reservation::where('status', 0)->count() }})
-            console.log({
-                order_count,
-                reservation_count
-            });
 
             setInterval(() => {
                 $.get("{{ route('sync.data') }}", function(data, status) {
-                    console.log({
-                        data
-                    });
                     if (order_count != data.order_count) {
                         render_orders()
                         order_count = data.order_count

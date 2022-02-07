@@ -96,25 +96,38 @@
                         <div class="col-xs-12 col-md-8">
                             @if (isset($dishes) && count($dishes) > 0)
                                 <table class="table table-hover table-responsive">
-                                    <tr>
-                                        <th>Name - EN</th>
-                                        <th>Name - AR</th>
-                                        <th>Country</th>
-                                        <th>Price</th>
-                                        <th></th>
-                                    </tr>
-                                    @foreach ($dishes as $dish)
+                                    <thead>
                                         <tr>
-                                            <td>{{ $dish->name_en }}</td>
-                                            <td>{{ $dish->name_ar }}</td>
-                                            <td>{{ $dish->country_iso_code }}</td>
-                                            <td>{{ $dish->price }}</td>
-                                            <td>
-                                                <a href="{{ route('d.dishes.type.delete', ['type' => 'dish', 'type_id' => $dish->id]) }}"
-                                                    class="btn btn-danger">Delete</a>
-                                            </td>
+                                            <th>Name - EN</th>
+                                            <th>Name - AR</th>
+                                            <th>Country</th>
+                                            <th>Price</th>
+                                            <th></th>
                                         </tr>
-                                    @endforeach
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($dishes as $dish)
+                                            <tr>
+                                                <td>{{ $dish->name_en }}</td>
+                                                <td>{{ $dish->name_ar }}</td>
+                                                <td>{{ $dish->country_iso_code }}</td>
+                                                <td>
+                                                    <input type="text" id="input_dish_{{ $dish->id }}"
+                                                        value="{{ $dish->price }}" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <button data-type="dish" data-id="{{ $dish->id }}"
+                                                        class="btn btn-primary btn-sm update" style="width: 75%; margin:1px"
+                                                        type="button">
+                                                        Update
+                                                    </button>
+                                                    <a href="{{ route('d.dishes.type.delete', ['type' => 'dish', 'type_id' => $dish->id]) }}"
+                                                        class="btn btn-danger btn-sm"
+                                                        style="width: 75%; margin:1px">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
                             @else
                                 <p class="alert alert-danger">No Dishes added.</p>
@@ -227,10 +240,18 @@
                                             <td>{{ $addon->name_en }}</td>
                                             <td>{{ $addon->name_ar }}</td>
                                             <td>{{ $addon->country_iso_code }}</td>
-                                            <td>{{ $addon->price }}</td>
                                             <td>
+                                                <input type="text" id="input_dish_addon_{{ $addon->id }}"
+                                                    value="{{ $addon->price }}" class="form-control">
+                                            </td>
+                                            <td>
+                                                <button data-type="dish_addon" data-id="{{ $addon->id }}"
+                                                    class="btn btn-primary btn-sm update" style="width: 75%; margin:1px"
+                                                    type="button">
+                                                    Update
+                                                </button>
                                                 <a href="{{ route('d.dishes.type.delete', ['type' => 'addon', 'type_id' => $addon->id]) }}"
-                                                    class="btn btn-danger">Delete</a>
+                                                    style="width: 75%; margin:1px" class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -385,7 +406,9 @@
                                             <tr>
                                                 <td>{{ $dish->name_en }}</td>
                                                 <td>{{ $addon->name_en }}</td>
-                                                <td><a href="{{ route('d.dishes.remove', ['type' => 'addons', 'dish_id' => $dish->id, 'type_id' => $addon->id]) }}">Remove</a></td>
+                                                <td><a
+                                                        href="{{ route('d.dishes.remove', ['type' => 'addons', 'dish_id' => $dish->id, 'type_id' => $addon->id]) }}">Remove</a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endforeach
@@ -457,7 +480,9 @@
                                             <tr>
                                                 <td>{{ $dish->name_en }}</td>
                                                 <td>{{ $tag->name_en }}</td>
-                                                <td><a href="{{ route('d.dishes.remove', ['type' => 'tag', 'dish_id' => $dish->id, 'type_id' => $tag->id]) }}">Remove</a></td>
+                                                <td><a
+                                                        href="{{ route('d.dishes.remove', ['type' => 'tag', 'dish_id' => $dish->id, 'type_id' => $tag->id]) }}">Remove</a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endforeach
@@ -493,5 +518,22 @@
         $('#addon_country_iso_code').change(function() {
             addon_update_currency();
         });
+
+        $(".update").click(function(event) {
+            event.preventDefault()
+            let type = $(this).attr('data-type')
+            let id = $(this).attr('data-id')
+            let input_id = 'input_' + type + '_' + id
+            let new_price = $('#' + input_id).val()
+            $.post("{{ route('update.price') }}", {
+                id: id,
+                type: type,
+                new_price: new_price
+            }, function(data, status) {
+                if (data == true) {
+                    alert('Price updated successfully..')
+                }
+            })
+        })
     </script>
 @endsection
